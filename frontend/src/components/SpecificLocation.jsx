@@ -20,8 +20,8 @@ function SpecificLocation({ data }) {
       <p>
         Feels like: {current.feelslike_c}C || {current.feelslike_f}F
       </p>
-      <p>{current.condition.text}</p>
       <img src={current.condition.icon} alt="Weather icon" />
+      <p>{current.condition.text}</p>
     </div>
   );
 
@@ -29,7 +29,15 @@ function SpecificLocation({ data }) {
     <div>
       <p>Wind speed: {current.wind_kph} km/h</p>
       <p>Precipitation: {current.precip_mm}mm</p>
-      <p>AIQ</p>
+      <p>Air Quality:
+        <ul>
+        <li>Carbon Monoxide: {current.air_quality.co} μg/m3</li>
+        <li>Ozone: {current.air_quality.no2} μg/m3</li>
+        <li>Nitrogen dioxide: {current.air_quality.o3} μg/m3</li>
+        <li>Sulphur dioxide:{current.air_quality.so2} μg/m3</li>
+        <li>US-epa Index: {current.air_quality['us-epa-index']}</li>
+        </ul>
+      </p>
     </div>
   );
 

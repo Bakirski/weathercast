@@ -33,7 +33,6 @@ app.post("/get-location-data", async (req, res) => {
         },
       }
     );
-    console.log("Weather Data: ", response.data);
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching data for location: ", error);
@@ -43,7 +42,6 @@ app.post("/get-location-data", async (req, res) => {
 
 app.post("/current-location", async (req, res) => {
   const { latitude, longitude } = req.body;
-  console.log(latitude, longitude);
   try {
     const response = await axios.get(
       `http://api.weatherapi.com/v1/current.json`,
@@ -54,6 +52,23 @@ app.post("/current-location", async (req, res) => {
     console.error("Error geting weather for current: ", error);
   }
 });
+
+app.post("/get-forecast", async (req, res) => {
+  const {location} = req.body;
+  try{
+    const response = await axios.get("http://api.weatherapi.com/v1/forecast.json",
+     {params: 
+      { key: api_key,
+        q: location,
+        days: 4,
+        aqi : "no",
+        alerts : "no"
+      }});
+        res.json(response.data.forecast.forecastday);
+      } catch(error){
+        console.error("Error fetching forecast data: ", error);
+      }
+      });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
