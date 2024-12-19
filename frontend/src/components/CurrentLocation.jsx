@@ -12,10 +12,9 @@ function CurrentLocation(props) {
   function LocationDetails({ location }) {
     return (
       <div>
-        <h1>{location.name}</h1>
-        <h1>{location.region}</h1>
-        <h3>{location.country}</h3>
-        <h4>{location.localtime.split(" ")[1]}</h4>
+        <h1>{location.name}{location.region !== "" && <span>, {location.region}</span>}</h1>
+        <h2>{location.country}</h2>
+        <h3>{location.localtime.split(" ")[1]}</h3>
       </div>
     );
   }
@@ -23,14 +22,14 @@ function CurrentLocation(props) {
   function WeatherDetails({ current }) {
     return (
       <div>
+        <img src={current.condition.icon} alt="Weather icon" />
+        <p>{current.condition.text}</p>        
         <p>
           Temperature: {current.temp_c}C || {current.temp_f}F
         </p>
         <p>
           Feels like: {current.feelslike_c}C || {current.feelslike_f}F
         </p>
-        <img src={current.condition.icon} alt="Weather icon" />
-        <p>{current.condition.text}</p>
       </div>
     );
   }

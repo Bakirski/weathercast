@@ -9,6 +9,14 @@ function Forecast(props) {
     return date.toLocaleDateString("en-US", { weekday: "long" });
   }
 
+  function dayAndMonth(dateString){
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "long",
+    })
+  }
+
   useEffect(() => {
     async function getForecast() {
       try {
@@ -29,13 +37,23 @@ function Forecast(props) {
     return (
       <div key={index}>
         <div>
-          <p>{getDayOfWeek(forecast.date)}</p>
-          <p>{forecast.date}</p>
+          <p>{getDayOfWeek(forecast.date)}, {dayAndMonth(forecast.date)}</p>
           <img src={forecast.day.condition.icon} alt="Weather icon" />
           <p>{forecast.day.condition.text}</p>
         </div>
         <div>
-          <p>Precipitation: {forecast.day.totalprecip_mm}mm</p>
+          <p>{forecast.day.daily_chance_of_rain > 0 ? (
+            <div>
+              <p>Chance of rain: {forecast.day.daily_chance_of_rain}%</p>
+              <p>Precipitation: {forecast.day.totalprecip_mm}mm</p>
+            </div>) : forecast.day.daily_chance_of_snow > 0 && (
+            <div>
+              <p>Chance of snow: {forecast.day.daily_chance_of_snow}%</p>
+              <p>Precipitation: {forecast.day.totalprecip_mm}mm</p>
+            </div>
+              )}
+          </p>
+          
         </div>
         <div>
           <p>Average Temperature: {forecast.day.avgtemp_c}°C</p>
