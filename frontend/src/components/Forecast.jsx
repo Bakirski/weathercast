@@ -35,15 +35,15 @@ function Forecast(props) {
 
   function forecastDay(forecast, index) {
     return (
-      <div key={index}>
-        <div>
+      <div key={index} className="bg-slate-200 p-2 rounded-lg flex flex-col w-64 gap-2">
+        <div className="flex flex-col items-center">
           <p>{getDayOfWeek(forecast.date)}, {dayAndMonth(forecast.date)}</p>
-          <img src={forecast.day.condition.icon} alt="Weather icon" />
+          <img className="w-28 h-28" src={forecast.day.condition.icon} alt="Weather icon" />
           <p>{forecast.day.condition.text}</p>
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <p>{forecast.day.daily_chance_of_rain > 0 ? (
-            <div>
+            <div className="flex flex-col items-center">
               <p>Chance of rain: {forecast.day.daily_chance_of_rain}%</p>
               <p>Precipitation: {forecast.day.totalprecip_mm}mm</p>
             </div>) : forecast.day.daily_chance_of_snow > 0 && (
@@ -55,7 +55,7 @@ function Forecast(props) {
           </p>
           
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <p>Average Temperature: {forecast.day.avgtemp_c}°C</p>
           <p>Max Temperature: {forecast.day.maxtemp_c}°C</p>
           <p>Min Temperature: {forecast.day.mintemp_c}°C</p>
@@ -67,7 +67,7 @@ function Forecast(props) {
                 day: getDayOfWeek(forecast.date),
                 hours: forecast.hour,
               })
-              }}>Hourly Forecast</button>
+              }} className="border border-black rounded-lg p-0.5 pl-1 pr-1 bg-slate-300 mt-3">Hourly Forecast</button>
           <br />
         </div>
       </div>
@@ -76,12 +76,14 @@ function Forecast(props) {
 
 return (
   <div>
-    <h2>Forecast for next 3 days</h2>
+    <h2 className="text-2xl mt-5 mb-5">Forecast for next 3 days</h2>
+    <div className="flex gap-10">
     {forecastData.length > 1 ? (
       forecastData.slice(1).map((forecast, index) => forecastDay(forecast, index))
     ) : (
       <p>Loading forecast data...</p>
     )}
+    </div>
   </div>
 );
 }

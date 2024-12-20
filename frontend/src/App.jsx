@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "./components/Header.jsx";
-import CurrentLocation from "./components/CurrentLocation.jsx";
-import SpecificLocation from "./components/SpecificLocation.jsx";
 import Forecast from "./components/Forecast.jsx";
 import HourlyWeather from "./components/HourlyWeather.jsx";
+import Location from "./components/Location.jsx";
 
 function App() {
   const [locationData, setLocationData] = useState(null);
@@ -25,20 +24,22 @@ function App() {
         searched={searched}
       />
       {locationData &&
-        <button onClick={() => {
+        <button className="border-black border p-0.5 rounded-lg pl-1 pr-1 mb-5" onClick={() => {
         console.log(locationData);
         setForecast(true);
         }}>
         3 Day Forecast
         </button>}
       {!searched ? (
-        <CurrentLocation current={(returnedData) => {
+        <Location
+        current={(returnedData) => {
           setLocationData(returnedData);
           setForecast(false);
-        }}/>
+        }}
+      />
       ) : (
         <div>
-        <SpecificLocation data={locationData}/>
+        <Location data={locationData} />
         </div>
         )}
         {forecast && locationData && <Forecast locationName={locationData.location.name} 

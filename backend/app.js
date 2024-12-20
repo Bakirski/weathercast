@@ -6,6 +6,7 @@ import axios from "axios";
 
 const app = express();
 const port = 4000;
+let coordinates = {latitude: null, longitude: null};
 
 env.config();
 const api_key = process.env.API_KEY;
@@ -41,11 +42,12 @@ app.post("/get-location-data", async (req, res) => {
 });
 
 app.post("/current-location", async (req, res) => {
-  const { latitude, longitude } = req.body;
+   const {latitude, longitude} = req.body;
+   coordinates = {latitude, longitude};
   try {
     const response = await axios.get(
       `http://api.weatherapi.com/v1/current.json`,
-      { params: { key: api_key, q: `${latitude},${longitude}`, aqi: "yes" } }
+      { params: { key: api_key, q: `${coordinates.latitude},${coordinates.longitude}`, aqi: "yes" } }
     );
     res.json(response.data);
   } catch (error) {

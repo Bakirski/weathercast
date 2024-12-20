@@ -22,17 +22,18 @@ function Header(props) {
 
   return (
     <div>
-      <h1>Weather Forecast</h1>
-      <form onSubmit={getLocationData}>
+      <h1 className="text-3xl mb-5">Weather Forecast</h1>
+      <form onSubmit={getLocationData} className="mb-3">
         <input
           type="text"
           placeholder="Search"
           name="location_name"
+          className="rounded-lg border border-solid border-black mr-2 p-0.5"
           onChange={(event) => {
             setLocation(event.target.value);
           }}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="border border-black p-0.5 rounded-lg pl-1 pr-1">Search</button>
       </form>
     </div>
   );
