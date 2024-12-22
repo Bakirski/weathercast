@@ -4,12 +4,14 @@ import Header from "./components/Header.jsx";
 import Forecast from "./components/Forecast.jsx";
 import HourlyWeather from "./components/HourlyWeather.jsx";
 import Location from "./components/Location.jsx";
+import TemperatureChart from "./components/TemperatureChart.jsx";
 
 function App() {
   const [locationData, setLocationData] = useState(null);
   const [searched, setSearched] = useState(false);
   const [forecast, setForecast] = useState(false);
   const [hourlyData, setHourlyData] = useState(null);
+  const [showChart, setShowChart] = useState(null);
 
   function getData(returnedData){
     setLocationData(returnedData);
@@ -44,11 +46,23 @@ function App() {
         )}
         {forecast && locationData && <Forecast locationName={locationData.location.name} 
         hourlyWeather={(data) => {
-          setHourlyData(data); 
+          setHourlyData(data);
+          setShowChart(false); 
+          }} chart={(data) => {
+            setHourlyData(data);
+            setShowChart(true);
           }}/>}
-        
-
-      {hourlyData && <HourlyWeather hourlyData={hourlyData.hours} day={hourlyData.day}/>}
+      {hourlyData &&
+      <div>
+        {!showChart ? 
+        <HourlyWeather hourlyData={hourlyData.hours} day={hourlyData.day}/>
+      : <div>
+          <h2 className="text-2xl mt-5 mb-5">Hourly Temperature Chart</h2>
+          <TemperatureChart hourlyData={hourlyData} />
+        </div>
+      }
+      </div>
+      }
     </div>
   );
 }

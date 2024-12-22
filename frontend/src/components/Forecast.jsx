@@ -68,6 +68,10 @@ function Forecast(props) {
                 hours: forecast.hour,
               })
               }} className="border border-black rounded-lg p-0.5 pl-1 pr-1 bg-slate-300 mt-3">Hourly Forecast</button>
+            <button className="border border-black rounded-lg p-0.5 pl-1 pr-1 bg-slate-300 mt-3 mb-1" onClick={(event) => {
+              event.preventDefault();
+              props.chart(forecast.hour);
+            }}>Temperature Chart</button>
           <br />
         </div>
       </div>
