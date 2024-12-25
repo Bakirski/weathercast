@@ -12,7 +12,7 @@ env.config();
 const api_key = process.env.API_KEY;
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: true,
   methods: "GET,POST,PUT,DELETE",
   credentials: true,
 };
@@ -66,9 +66,11 @@ app.post("/get-forecast", async (req, res) => {
         aqi : "no",
         alerts : "no"
       }});
-        res.json(response.data.forecast.forecastday);
+      console.log(response.data.forecast.forecastday);
+      res.json(response.data.forecast.forecastday);
       } catch(error){
         console.error("Error fetching forecast data: ", error);
+        res.status(500).json({ error: "Error fetching forecast data" });
       }
       });
 
